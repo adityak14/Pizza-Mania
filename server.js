@@ -9,7 +9,7 @@ const mongoose = require('mongoose')
 const session = require('express-session')
 const flash = require('express-flash')
 const MongoDbstore = require('connect-mongo')
-// MongoDbstore(session)
+const passport = require('passport')
 
 // Database connection
 const url="mongodb+srv://aditya:aditya123@cluster0.s8e6v.mongodb.net/pizza"
@@ -29,6 +29,7 @@ try {
   connection.on("error", (err) => console.log(`Connection error ${err}`));
   connection.once("open", () => console.log("Connected to DB!"));
 
+
 // Session store
 let mongoStore = MongoDbstore.create({
   mongooseConnection: connection,
@@ -47,14 +48,21 @@ app.use(session({
 
 app.use(flash())
 
+// Passport config
+const passportInit = require('./app/config/passport')
+passportInit(passport)
+app.use(passport.initialize())
+app.use(passport.session())
+
 //assets
 app.use(express.static('public'))
+app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 
 // Global middleware
 app.use((req, res, next) => {
   res.locals.session = req.session
-  // res.locals.user = req.user
+  res.locals.user = req.user
   next()
 })
 
