@@ -20,7 +20,7 @@ function init(passport) {
             return done(null, false, { message: 'Something went wrong' })
         })
     }))
-
+    //Storing user id in session
     passport.serializeUser((user, done) => {
         done(null, user._id)
     })

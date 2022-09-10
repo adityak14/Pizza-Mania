@@ -32,9 +32,9 @@ function authController() {
                         return next(err)
                     }
 
-                    return res.redirect('/')
+                    return res.redirect(_getRedirectUrl(req))
                 })
-            })(req, res, next)
+            })(req, res, next)//Passport returns a function
         },
         register(req, res) {
             res.render('auth/register')
