@@ -12,7 +12,7 @@ const MongoDbstore = require('connect-mongo')//session store
 const passport = require('passport')
 
 // Database connection
-const url="mongodb+srv://aditya:aditya123@cluster0.s8e6v.mongodb.net/pizza"
+const url="URL for MongoDB Connection"
 
 try {
     // Connect to the MongoDB cluster
